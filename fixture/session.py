@@ -15,3 +15,4 @@ class SessionHelper:
     def logout(self):
         wd = self.app.wd
         wd.find_element(By.XPATH, "//div[@id='top']//a").click()
+        wd.find_element_by_name("user")
