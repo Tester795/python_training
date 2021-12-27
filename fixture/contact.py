@@ -104,11 +104,6 @@ class ContactHelper:
             wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bmonth']"), new_contact.birth_month)
         change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='byear']"), new_contact.birth_year)
-
-        # wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='new_group']").send_keys(new_contact.group)
-        # change_value(
-        #     wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='new_group']"), new_contact.group)
-
         change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address2']"), new_contact.address_2)
         change_value(
