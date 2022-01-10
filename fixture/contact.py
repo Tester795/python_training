@@ -64,8 +64,8 @@ class ContactHelper:
                         + "'] and ./td[3][text()='" + old_contact.firstname + "'] ]/td[8]/a").click()
 
         def change_value(element, value):
-            element.send_keys(keys.Keys.CONTROL + "a")
-            element.send_keys(keys.Keys.DELETE)
+            # element.send_keys(keys.Keys.CONTROL + "a")
+            # element.send_keys(keys.Keys.DELETE)
             element.send_keys(value)
 
         change_value(

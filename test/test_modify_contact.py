@@ -3,7 +3,6 @@ from model.contact import Contact
 
 
 def test_modify_contact(app):
-    app.session.login(username="admin", password="secret")
     old_contact = Contact(
             firstname="Contact for edit",
             middle_name="test",
@@ -53,7 +52,6 @@ def test_modify_contact(app):
             group="Group 1")
     app.contact.create(old_contact)
     app.contact.modify(old_contact, new_contact)
-    app.session.logout()
 
 
 

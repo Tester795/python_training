@@ -5,13 +5,10 @@ from model.contact import Contact
 def test_delete_first_contact(app):
     # from test.test_add_contact import test_add_contact
     # test_add_contact(app)
-    app.session.login(username="admin", password="secret")
     app.contact.delete_first()
-    app.session.logout()
 
 
 def test_delete_contact(app):
-    app.session.login(username="admin", password="secret")
     test_contact = Contact(
             firstname="Contact for deletion",
             middle_name="test",
@@ -37,11 +34,8 @@ def test_delete_contact(app):
             group="Group 1")
     app.contact.create(test_contact)
     app.contact.delete(test_contact.lastname, test_contact.firstname)
-    app.session.logout()
 
 
 def test_delete_all_contacts(app):
-    app.session.login(username="admin", password="secret")
     app.contact.delete_all()
-    app.session.logout()
 
