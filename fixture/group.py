@@ -42,7 +42,7 @@ class GroupHelper:
         self.open_groups_page()
         # select first group
         # submit deletion
-        select_first_group()
+        self.select_first_group()
         wd.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
 
@@ -105,3 +105,16 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element(By.NAME, "selected[]").click()
 
+    def count(self):
+        wd = self.app.wd
+        self.open_groups_page()
+        return len(wd.find_elements(By.NAME, "selected[]"))
+
+    def exist(self, group_name):
+        wd = self.app.wd
+        self.open_groups_page()
+        if group_name != "":
+            xpath = "//*[@id='content']//span[@class='group' and text()='" + group_name + "']/input"
+        else:
+            xpath = "//*[@id='content']//span[@class='group' and not(text())]/input"
+        return len(wd.find_elements(By.XPATH, xpath)) > 0

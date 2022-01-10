@@ -50,7 +50,8 @@ def test_modify_contact(app):
             home_telephone_2="test",
             notes="test",
             group="Group 1")
-    app.contact.create(old_contact)
+    if not app.contact.exist(old_contact.firstname, old_contact.lastname):
+        app.contact.create(old_contact)
     app.contact.modify(old_contact, new_contact)
 
 

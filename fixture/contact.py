@@ -114,3 +114,14 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='update']").click()
 
         wd.find_element(By.LINK_TEXT, "home page").click()
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements(By.NAME, "selected[]"))
+
+    def exist(self, contact_lastname, contact_firstname):
+        wd = self.app.wd
+        return len(wd.find_elements(By.XPATH,
+                                    "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='"
+                                    + contact_lastname + "'] and ./td[3][text()='" + contact_firstname
+                                    + "'] ]/td[1]/input")) > 0
