@@ -6,8 +6,18 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
+    def open_contacts_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements(By.ID, "maintable")) > 0):
+            wd.find_element(By.LINK_TEXT, "home").click()
+
+    def return_to_home_page(self):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "home page").click()
+
     def create(self, contact):
         wd = self.app.wd
+
         wd.find_element(By.LINK_TEXT, "add new").click()
 
         self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='firstname']"), contact.firstname)
@@ -34,10 +44,11 @@ class ContactHelper:
         self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='notes']"), contact.notes)
 
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[21]").click()
-        wd.find_element(By.LINK_TEXT, "home page").click()
+        self.return_to_home_page()
 
     def delete_first(self):
         wd = self.app.wd
+        self.open_contacts_page()
         # select first contact on home page
         wd.find_element(By.NAME, "selected[]").click()
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
@@ -45,6 +56,7 @@ class ContactHelper:
 
     def delete_all(self):
         wd = self.app.wd
+        self.open_contacts_page()
         # select all checkbox on home page
         wd.find_element(By.XPATH, "//*[@id='MassCB']").click()
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
@@ -52,6 +64,7 @@ class ContactHelper:
 
     def delete(self, contact_lastname, contact_firstname):
         wd = self.app.wd
+        self.open_contacts_page()
         # find contact with specific last name and first name
         wd.find_element(By.XPATH, "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='" + contact_lastname
                         + "'] and ./td[3][text()='" + contact_firstname + "'] ]/td[1]/input").click()
@@ -61,6 +74,7 @@ class ContactHelper:
 
     def modify(self, old_contact, new_contact):
         wd = self.app.wd
+        self.open_contacts_page()
         # find contact with specific last name and first name
         wd.find_element(By.XPATH, "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='" + old_contact.lastname
                         + "'] and ./td[3][text()='" + old_contact.firstname + "'] ]/td[8]/a").click()
@@ -109,15 +123,16 @@ class ContactHelper:
             wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='notes']"), new_contact.notes)
 
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='update']").click()
-
-        wd.find_element(By.LINK_TEXT, "home page").click()
+        self.return_to_home_page()
 
     def count(self):
         wd = self.app.wd
+        self.open_contacts_page()
         return len(wd.find_elements(By.NAME, "selected[]"))
 
     def exist(self, contact_lastname, contact_firstname):
         wd = self.app.wd
+        self.open_contacts_page()
         return len(wd.find_elements(By.XPATH,
                                     "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='"
                                     + contact_lastname + "'] and ./td[3][text()='" + contact_firstname
