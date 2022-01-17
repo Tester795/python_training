@@ -16,6 +16,11 @@ class Application:
         wd = self.wd
         wd.get("http://localhost/addressbook/")
 
+    @staticmethod
+    def change_value(element, value):
+        element.clear()
+        element.send_keys(value)
+
     def destroy(self):
         self.wd.quit()
 

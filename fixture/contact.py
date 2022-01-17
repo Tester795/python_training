@@ -9,28 +9,30 @@ class ContactHelper:
     def create(self, contact):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "add new").click()
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='firstname']").send_keys(contact.firstname)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='middlename']").send_keys(contact.middle_name)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='lastname']").send_keys(contact.lastname)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='nickname']").send_keys(contact.nickname)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='title']").send_keys(contact.title)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='company']").send_keys(contact.company)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address']").send_keys(contact.address)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='home']").send_keys(contact.home_telephone)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='mobile']").send_keys(contact.mobile_telephone)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='work']").send_keys(contact.work_telephone)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='fax']").send_keys(contact.fax_telephone)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email']").send_keys(contact.email)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email2']").send_keys(contact.email_2)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email3']").send_keys(contact.email_3)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='homepage']").send_keys(contact.home_page_url)
+
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='firstname']"), contact.firstname)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='middlename']"), contact.middle_name)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='lastname']"), contact.lastname)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='nickname']"), contact.nickname)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='title']"), contact.title)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='company']"), contact.company)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address']"), contact.address)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='home']"), contact.home_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='mobile']"), contact.mobile_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='work']"), contact.work_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='fax']"), contact.fax_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email']"), contact.email)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email2']"), contact.email_2)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email3']"), contact.email_3)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='homepage']"), contact.home_page_url)
         wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bday']").send_keys(contact.birthday)
         wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bmonth']").send_keys(contact.birth_month)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='byear']").send_keys(contact.birth_year)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='byear']"), contact.birth_year)
         wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='new_group']").send_keys(contact.group)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address2']").send_keys(contact.address_2)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='phone2']").send_keys(contact.home_telephone_2)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='notes']").send_keys(contact.notes)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address2']"), contact.address_2)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='phone2']"), contact.home_telephone_2)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='notes']"), contact.notes)
+
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[21]").click()
         wd.find_element(By.LINK_TEXT, "home page").click()
 
@@ -63,52 +65,47 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='" + old_contact.lastname
                         + "'] and ./td[3][text()='" + old_contact.firstname + "'] ]/td[8]/a").click()
 
-        def change_value(element, value):
-            element.send_keys(keys.Keys.CONTROL + "a")
-            element.send_keys(keys.Keys.DELETE)
-            element.send_keys(value)
-
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='firstname']"), new_contact.firstname)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='middlename']"), new_contact.middle_name)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='lastname']"), new_contact.lastname)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='nickname']"), new_contact.nickname)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='title']"), new_contact.title)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='company']"), new_contact.company)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address']"), new_contact.address)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='home']"), new_contact.home_telephone)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='mobile']"), new_contact.mobile_telephone)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='work']"), new_contact.work_telephone)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='fax']"), new_contact.fax_telephone)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email']"), new_contact.email)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email2']"), new_contact.email_2)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email3']"), new_contact.email_3)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='homepage']"), new_contact.home_page_url)
-        change_value(
-            wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bday']"), new_contact.birthday)
-        change_value(
-            wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bmonth']"), new_contact.birth_month)
-        change_value(
+
+        wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bday']").send_keys(new_contact.birthday)
+        wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bmonth']").send_keys(new_contact.birth_month)
+
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='byear']"), new_contact.birth_year)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address2']"), new_contact.address_2)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='phone2']"), new_contact.home_telephone_2)
-        change_value(
+        self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='notes']"), new_contact.notes)
 
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='update']").click()
