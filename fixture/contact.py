@@ -181,7 +181,7 @@ class ContactHelper:
         WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
         WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
         WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.TAG_NAME, "td")) > 0)
-        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.TAG_NAME, "tr")) > 0)
+        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.NAME, "entry")) > 0)
 
         for row in wd.find_elements(By.NAME, "entry"):
             wait = WebDriverWait(row, 10)
@@ -189,7 +189,8 @@ class ContactHelper:
                        and EC.presence_of_element_located((By.XPATH, "//td[2]"))
                        and EC.presence_of_element_located((By.XPATH, "//td[3]")))
 
-            contact_id = row.find_element(By.NAME, "//td[1]/*[@name='selected[]']").get_attribute("value")
+            contact_id = row.find_element(By.XPATH, "//td[1]//*[@name='selected[]']").get_attribute("value")
+
             lastname = row.find_element(By.XPATH, "//td[2]").text
             firstname = row.find_element(By.XPATH, "//td[3]").text
             contacts.append(Contact(firstname=firstname, lastname=lastname, id=contact_id))
