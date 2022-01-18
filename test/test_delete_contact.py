@@ -28,7 +28,10 @@ def test_delete_first_contact(app):
                 home_telephone_2="test",
                 notes="test",
                 group="Group 1"))
+    old_contacts = app.contact.get_contact_list()
     app.contact.delete_first()
+    new_contacts = app.contact.get_contact_list()
+    assert old_contacts - 1 == new_contacts
 
 
 def test_delete_contact(app):
@@ -58,7 +61,10 @@ def test_delete_contact(app):
 
     if not app.contact.exist(test_contact.firstname, test_contact.lastname):
         app.contact.create(test_contact)
+    old_contacts = app.contact.get_contact_list()
     app.contact.delete(test_contact.lastname, test_contact.firstname)
+    new_contacts = app.contact.get_contact_list()
+    assert old_contacts - 1 == new_contacts
 
 
 def test_delete_all_contacts(app):
@@ -88,4 +94,6 @@ def test_delete_all_contacts(app):
                 notes="test",
                 group="Group 1"))
     app.contact.delete_all()
+    new_contacts = app.contact.get_contact_list()
+    assert new_contacts == []
 

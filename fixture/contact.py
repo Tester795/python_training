@@ -1,5 +1,18 @@
+from datetime import time
+from telnetlib import EC
+
+from attr import exceptions
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common import keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
+from model.contact import Contact
 
 
 class ContactHelper:
@@ -20,28 +33,45 @@ class ContactHelper:
 
         wd.find_element(By.LINK_TEXT, "add new").click()
 
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='firstname']"), contact.firstname)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='middlename']"), contact.middle_name)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='lastname']"), contact.lastname)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='nickname']"), contact.nickname)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='firstname']"),
+                              contact.firstname)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='middlename']"),
+                              contact.middle_name)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='lastname']"),
+                              contact.lastname)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='nickname']"),
+                              contact.nickname)
         self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='title']"), contact.title)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='company']"), contact.company)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address']"), contact.address)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='home']"), contact.home_telephone)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='mobile']"), contact.mobile_telephone)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='work']"), contact.work_telephone)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='fax']"), contact.fax_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='company']"),
+                              contact.company)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address']"),
+                              contact.address)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='home']"),
+                              contact.home_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='mobile']"),
+                              contact.mobile_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='work']"),
+                              contact.work_telephone)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='fax']"),
+                              contact.fax_telephone)
         self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email']"), contact.email)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email2']"), contact.email_2)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email3']"), contact.email_3)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='homepage']"), contact.home_page_url)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email2']"),
+                              contact.email_2)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='email3']"),
+                              contact.email_3)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='homepage']"),
+                              contact.home_page_url)
         wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bday']").send_keys(contact.birthday)
         wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bmonth']").send_keys(contact.birth_month)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='byear']"), contact.birth_year)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='byear']"),
+                              contact.birth_year)
         wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='new_group']").send_keys(contact.group)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address2']"), contact.address_2)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='phone2']"), contact.home_telephone_2)
-        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='notes']"), contact.notes)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='address2']"),
+                              contact.address_2)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='phone2']"),
+                              contact.home_telephone_2)
+        self.app.change_value(wd.find_element(By.XPATH, "//*[@id='content']/form/textarea[@name='notes']"),
+                              contact.notes)
 
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[21]").click()
         self.return_to_home_page()
@@ -53,6 +83,8 @@ class ContactHelper:
         wd.find_element(By.NAME, "selected[]").click()
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
+        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
 
     def delete_all(self):
         wd = self.app.wd
@@ -61,6 +93,8 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//*[@id='MassCB']").click()
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
+        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
 
     def delete(self, contact_lastname, contact_firstname):
         wd = self.app.wd
@@ -71,13 +105,14 @@ class ContactHelper:
         # submit deletion
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
+        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
 
-    def modify(self, old_contact, new_contact):
+    def modify(self, new_contact):
         wd = self.app.wd
         self.open_contacts_page()
-        # find contact with specific last name and first name
-        wd.find_element(By.XPATH, "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='" + old_contact.lastname
-                        + "'] and ./td[3][text()='" + old_contact.firstname + "'] ]/td[8]/a").click()
+
+        wd.find_element(By.XPATH, "//*[@id='" + new_contact.id + "']//..//..//td[8]/a").click()
 
         self.app.change_value(
             wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='firstname']"), new_contact.firstname)
@@ -137,3 +172,59 @@ class ContactHelper:
                                     "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='"
                                     + contact_lastname + "'] and ./td[3][text()='" + contact_firstname
                                     + "'] ]/td[1]/input")) > 0
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_contacts_page()
+        contacts = []
+
+        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
+        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.TAG_NAME, "td")) > 0)
+        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.TAG_NAME, "tr")) > 0)
+
+        for row in wd.find_elements(By.NAME, "entry"):
+            wait = WebDriverWait(row, 10)
+            wait.until(EC.presence_of_element_located((By.XPATH, "//td[1]"))
+                       and EC.presence_of_element_located((By.XPATH, "//td[2]"))
+                       and EC.presence_of_element_located((By.XPATH, "//td[3]")))
+
+            contact_id = row.find_element(By.NAME, "//td[1]/*[@name='selected[]']").get_attribute("value")
+            lastname = row.find_element(By.XPATH, "//td[2]").text
+            firstname = row.find_element(By.XPATH, "//td[3]").text
+            contacts.append(Contact(firstname=firstname, lastname=lastname, id=contact_id))
+        return contacts
+
+    def find(self):
+        wd = self.app.wd
+        element = wd.find_elements_by_id("data")
+        if element:
+            return element
+        else:
+            return False
+
+    def page_has_loaded(self):
+        wd = self.app.wd
+        page_state = wd.execute_script('return document.readyState;')
+        return page_state == 'complete'
+
+    def wait_for_visibility(self, selector, timeout_seconds=10):
+        retries = timeout_seconds
+        while retries:
+            try:
+                element = self.get_via_css(selector)
+                if element.is_displayed():
+                    return element
+            except (exceptions.NoSuchElementException,
+                    exceptions.StaleElementReferenceException):
+                if retries <= 0:
+                    raise
+                else:
+                    pass
+
+            retries = retries - 1
+            time.sleep(1)
+        raise exceptions.ElementNotVisibleException(
+            "Element %s not visible despite waiting for %s seconds" % (
+                selector, timeout_seconds)
+        )
