@@ -65,7 +65,7 @@ class GroupHelper:
         self.open_groups_page()
         # select group with specific name
         if group_name != "":
-            xpath = "//*[@id='content']//span[@class='group' and text()='" + group_name + "']/input"
+            xpath = "//*[@id='content']//span[@class='group' and text()='%s']/input" % group_name
         else:
             xpath = "//*[@id='content']//span[@class='group' and not(text())]/input"
 
@@ -80,7 +80,7 @@ class GroupHelper:
         self.open_groups_page()
         # select group with specific name
         if group_name != "":
-            xpath = "//*[@id='content']//span[@class='group' and text()='" + group_name + "']/input"
+            xpath = "//*[@id='content']//span[@class='group' and text()='%s']/input" % group_name
         else:
             xpath = "//*[@id='content']//span[@class='group' and not(text())]/input"
 
@@ -134,7 +134,7 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         if group_name != "":
-            xpath = "//*[@id='content']//span[@class='group' and text()='" + group_name + "']/input"
+            xpath = "//*[@id='content']//span[@class='group' and text()='%s']/input" % group_name
         else:
             xpath = "//*[@id='content']//span[@class='group' and not(text())]/input"
         return len(wd.find_elements(By.XPATH, xpath)) > 0

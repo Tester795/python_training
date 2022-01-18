@@ -48,8 +48,8 @@ class ContactHelper:
         self.select_by_index(index)
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
-        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
-        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+        WebDriverWait(wd, 10).until(
+            lambda method: (wd.current_url.endswith("addressbook/") and len(wd.find_elements(By.ID, "maintable")) > 0))
         self.contact_cache = None
 
     def delete_all(self):
@@ -59,28 +59,28 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//*[@id='MassCB']").click()
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
-        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
-        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+        WebDriverWait(wd, 10).until(
+            lambda method: (wd.current_url.endswith("addressbook/") and len(wd.find_elements(By.ID, "maintable")) > 0))
         self.contact_cache = None
 
     def delete(self, contact_lastname, contact_firstname):
         wd = self.app.wd
         self.open_contacts_page()
         # find contact with specific last name and first name
-        wd.find_element(By.XPATH, "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='" + contact_lastname
-                        + "'] and ./td[3][text()='" + contact_firstname + "'] ]/td[1]/input").click()
+        wd.find_element(By.XPATH,
+                        "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='%s'] and ./td[3][text()='%s']]/td[1]/input"
+                        % (contact_lastname, contact_firstname)).click()
         # submit deletion
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
-        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
-        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+        WebDriverWait(wd, 10).until(lambda method: (wd.current_url.endswith("addressbook/") and len(wd.find_elements(By.ID, "maintable")) > 0))
         self.contact_cache = None
 
     def fill_contact_form(self, new_contact):
         wd = self.app.wd
         self.app.change_field_value("//*[@id='content']/form/input[@name='firstname']", new_contact.firstname)
-        self.app.change_field_value( "//*[@id='content']/form/input[@name='middlename']", new_contact.middle_name)
-        self.app.change_field_value( "//*[@id='content']/form/input[@name='lastname']", new_contact.lastname)
+        self.app.change_field_value("//*[@id='content']/form/input[@name='middlename']", new_contact.middle_name)
+        self.app.change_field_value("//*[@id='content']/form/input[@name='lastname']", new_contact.lastname)
         self.app.change_field_value("//*[@id='content']/form/input[@name='nickname']", new_contact.nickname)
         self.app.change_field_value("//*[@id='content']/form/input[@name='title']", new_contact.title)
         self.app.change_field_value("//*[@id='content']/form/input[@name='company']", new_contact.company)
@@ -106,7 +106,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
 
-        wd.find_element(By.XPATH, "//*[@id='" + new_contact.id + "']//..//..//td[8]/a").click()
+        wd.find_element(By.XPATH, "//*[@id='%s']//..//..//td[8]/a" % str(new_contact.id)).click()
 
         self.fill_contact_form(new_contact)
 
@@ -134,9 +134,8 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
         return len(wd.find_elements(By.XPATH,
-                                    "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='"
-                                    + contact_lastname + "'] and ./td[3][text()='" + contact_firstname
-                                    + "'] ]/td[1]/input")) > 0
+                                    "//*[@id='maintable']//tr[@name='entry' and ./td[2][text()='%s'] and ./td[3][text()='%s']]/td[1]/input"
+                                    % (contact_lastname, contact_firstname))) > 0
 
     def get_contact_list(self):
         if self.contact_cache is None:
@@ -144,19 +143,17 @@ class ContactHelper:
             self.open_contacts_page()
             self.contact_cache = []
 
-            WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
-            WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+            WebDriverWait(wd, 20).until(EC.presence_of_all_elements_located((By.XPATH, "//table[@id='maintable']//tr[@name='entry']")))
+            # WebDriverWait(wd, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, "td")))
+            rows = wd.find_elements(By.XPATH, "//table[@id='maintable']//tr[@name='entry']")
 
-            for row in wd.find_elements(By.NAME, "entry"):
-                wait = WebDriverWait(row, 10)
-                wait.until(EC.presence_of_element_located((By.XPATH, "//td[1]"))
-                           and EC.presence_of_element_located((By.XPATH, "//td[2]"))
-                           and EC.presence_of_element_located((By.XPATH, "//td[3]")))
+            for row in rows:
+                WebDriverWait(row, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, "td")))
 
-                contact_id = row.find_element(By.XPATH, "//td[1]//*[@name='selected[]']").get_attribute("value")
-
-                lastname = row.find_element(By.XPATH, "//td[2]").text
-                firstname = row.find_element(By.XPATH, "//td[3]").text
+                cells = row.find_elements(By.TAG_NAME, "td")
+                contact_id = cells[0].find_element(By.NAME, "selected[]").get_attribute("value")
+                lastname = cells[1].text
+                firstname = cells[2].text
                 self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=contact_id))
         return list(self.contact_cache)
 
