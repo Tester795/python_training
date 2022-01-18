@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 from fixture.contact import ContactHelper
 from fixture.group import GroupHelper
@@ -16,10 +17,11 @@ class Application:
         wd = self.wd
         wd.get("http://localhost/addressbook/")
 
-    @staticmethod
-    def change_value(element, value):
-        element.clear()
-        element.send_keys(value)
+    def change_field_value(self, xpath, value):
+        wd = self.wd
+        if value is not None:
+            wd.find_element(By.XPATH, xpath).clear()
+            wd.find_element(By.XPATH, xpath).send_keys(value)
 
     def destroy(self):
         self.wd.quit()
