@@ -2,22 +2,17 @@ from datetime import time
 from telnetlib import EC
 
 from attr import exceptions
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-from selenium.webdriver.common import keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
 from model.contact import Contact
 
 
 class ContactHelper:
     def __init__(self, app):
         self.app = app
+
+    contact_cache = None
 
     def open_contacts_page(self):
         wd = self.app.wd
@@ -75,6 +70,7 @@ class ContactHelper:
 
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[21]").click()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def delete_first(self):
         wd = self.app.wd
@@ -85,6 +81,7 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
         WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+        self.contact_cache = None
 
     def delete_all(self):
         wd = self.app.wd
@@ -95,6 +92,7 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
         WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+        self.contact_cache = None
 
     def delete(self, contact_lastname, contact_firstname):
         wd = self.app.wd
@@ -107,6 +105,7 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
         WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
+        self.contact_cache = None
 
     def modify(self, new_contact):
         wd = self.app.wd
@@ -159,6 +158,7 @@ class ContactHelper:
 
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='update']").click()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
@@ -174,27 +174,26 @@ class ContactHelper:
                                     + "'] ]/td[1]/input")) > 0
 
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_contacts_page()
-        contacts = []
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_contacts_page()
+            self.contact_cache = []
 
-        WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
-        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
-        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.TAG_NAME, "td")) > 0)
-        WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.NAME, "entry")) > 0)
+            WebDriverWait(wd, 10).until(lambda method: self.page_has_loaded())
+            WebDriverWait(wd, 10).until(lambda method: len(wd.find_elements(By.ID, "maintable")) > 0)
 
-        for row in wd.find_elements(By.NAME, "entry"):
-            wait = WebDriverWait(row, 10)
-            wait.until(EC.presence_of_element_located((By.XPATH, "//td[1]"))
-                       and EC.presence_of_element_located((By.XPATH, "//td[2]"))
-                       and EC.presence_of_element_located((By.XPATH, "//td[3]")))
+            for row in wd.find_elements(By.NAME, "entry"):
+                wait = WebDriverWait(row, 10)
+                wait.until(EC.presence_of_element_located((By.XPATH, "//td[1]"))
+                           and EC.presence_of_element_located((By.XPATH, "//td[2]"))
+                           and EC.presence_of_element_located((By.XPATH, "//td[3]")))
 
-            contact_id = row.find_element(By.XPATH, "//td[1]//*[@name='selected[]']").get_attribute("value")
+                contact_id = row.find_element(By.XPATH, "//td[1]//*[@name='selected[]']").get_attribute("value")
 
-            lastname = row.find_element(By.XPATH, "//td[2]").text
-            firstname = row.find_element(By.XPATH, "//td[3]").text
-            contacts.append(Contact(firstname=firstname, lastname=lastname, id=contact_id))
-        return contacts
+                lastname = row.find_element(By.XPATH, "//td[2]").text
+                firstname = row.find_element(By.XPATH, "//td[3]").text
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=contact_id))
+        return list(self.contact_cache)
 
     def find(self):
         wd = self.app.wd

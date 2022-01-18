@@ -30,8 +30,10 @@ def test_delete_first_contact(app):
                 group="Group 1"))
     old_contacts = app.contact.get_contact_list()
     app.contact.delete_first()
+    assert len(old_contacts) - 1 == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) - 1 == len(new_contacts)
+    old_contacts[0:1] = []
+    assert old_contacts == new_contacts
 
 
 def test_delete_contact(app):
@@ -63,9 +65,10 @@ def test_delete_contact(app):
         app.contact.create(test_contact)
     old_contacts = app.contact.get_contact_list()
     app.contact.delete(test_contact.lastname, test_contact.firstname)
+    assert len(old_contacts) - 1 == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) - 1 == len(new_contacts)
-
+    old_contacts.remove(test_contact)
+    assert old_contacts == new_contacts
 
 def test_delete_all_contacts(app):
     if app.contact.count() == 0:
