@@ -123,7 +123,9 @@ class ContactHelper:
     def modify_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.open_contacts_page()
-        wd.find_elements(By.NAME, "selected[]")[index].find_element(By.XPATH, "//..//..//td[8]/a").click()
+
+        # wd.find_elements(By.NAME, "entry")[index].find_element(By.XPATH, "//td[8]/a").click()
+        wd.find_element(By.XPATH, "//*[@id='maintable']//tr[@name='entry'][%s]//td[8]/a" % str(index+1)).click()
 
         self.fill_contact_form(new_contact_data)
 
