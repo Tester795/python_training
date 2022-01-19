@@ -40,6 +40,7 @@ class ContactHelper:
 
     def select_by_index(self, index):
         wd = self.app.wd
+        self.open_contacts_page()
         wd.find_elements(By.NAME, "selected[]")[index].click()
 
     def delete_by_index(self, index):
