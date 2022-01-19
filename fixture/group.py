@@ -89,15 +89,7 @@ class GroupHelper:
         wd.find_element(By.NAME, "edit").click()
 
         # fill group form with new values
-        wd.find_element(By.NAME, "group_name").send_keys(keys.Keys.CONTROL + "a")
-        wd.find_element(By.NAME, "group_name").send_keys(keys.Keys.DELETE)
-        wd.find_element(By.NAME, "group_name").send_keys(new_group.name)
-        wd.find_element(By.NAME, "group_header").send_keys(keys.Keys.CONTROL + "a")
-        wd.find_element(By.NAME, "group_header").send_keys(keys.Keys.DELETE)
-        wd.find_element(By.NAME, "group_header").send_keys(new_group.header)
-        wd.find_element(By.NAME, "group_footer").send_keys(keys.Keys.CONTROL + "a")
-        wd.find_element(By.NAME, "group_footer").send_keys(keys.Keys.DELETE)
-        wd.find_element(By.NAME, "group_footer").send_keys(new_group.footer)
+        self.fill_group_form(new_group)
 
         # submit modify
         wd.find_element(By.NAME, "update").click()
