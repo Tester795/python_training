@@ -34,7 +34,9 @@ class Contact:
         self.all_addresses_from_details_page = all_addresses_from_details_page
 
     def __repr__(self):
-        return "%s_%s_%s" % (str(self.id), self.firstname, self.lastname)
+        return "|   %s   |   %s   |   %s   |   %s   |   %s   |   %s   |   %s   |   %s   |" % (str(self.id), self.firstname, self.lastname, self.address,
+                             self.email, self.home_telephone, self.mobile_telephone, self.work_telephone)
+
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.firstname == other.firstname and self.lastname == other.lastname

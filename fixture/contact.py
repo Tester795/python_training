@@ -26,7 +26,8 @@ class ContactHelper:
         wd.find_element(By.LINK_TEXT, "add new").click()
 
         self.fill_contact_form(contact)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='new_group']").send_keys(contact.group)
+        if contact.group is not None:
+            wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='new_group']").send_keys(contact.group)
 
         wd.find_element(By.XPATH, "//*[@id='content']/form/input[21]").click()
         self.return_to_home_page()
@@ -102,8 +103,10 @@ class ContactHelper:
         self.app.change_field_value("//*[@id='content']/form/input[@name='email3']", new_contact.email_3)
         self.app.change_field_value("//*[@id='content']/form/input[@name='homepage']", new_contact.home_page_url)
 
-        wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bday']").send_keys(new_contact.birthday)
-        wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bmonth']").send_keys(new_contact.birth_month)
+        if new_contact.birthday is not None:
+            wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bday']").send_keys(new_contact.birthday)
+        if new_contact.birth_month is not None:
+            wd.find_element(By.XPATH, "//*[@id='content']/form/select[@name='bmonth']").send_keys(new_contact.birth_month)
 
         self.app.change_field_value("//*[@id='content']/form/input[@name='byear']", new_contact.birth_year)
         self.app.change_field_value("//*[@id='content']/form/textarea[@name='address2']", new_contact.address_2)
@@ -238,3 +241,34 @@ class ContactHelper:
             , work_telephone=work_telephone
             , home_telephone_2=home_telephone_2
         )
+
+    def open_add_new_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("addressbook/edit.php")
+                and len(wd.find_elements(By.XPATH, "//form[@name='theform']")) > 0):
+            wd.find_element(By.LINK_TEXT, "add new").click()
+
+    def get_birthday_available_values(self):
+        wd = self.app.wd
+        self.open_add_new_page()
+        options = wd.find_elements(By.XPATH, "//select[@name='bday']//option")
+        available_values = []
+        # [available_values.append(option.get_attribute("value")) for option in options]
+        return list(
+            map(lambda option: available_values.append(option.get_attribute("value")), options))
+
+    def get_birthmoth_available_values(self):
+        wd = self.app.wd
+        self.open_add_new_page()
+        options = wd.find_elements(By.XPATH, "//select[@name='bmonth']//option")
+        available_values = []
+        return list(
+            map(lambda option: available_values.append(option.get_attribute("value")), options))
+
+    def get_group_available_values(self):
+        wd = self.app.wd
+        self.open_add_new_page()
+        options = wd.find_elements(By.XPATH, "//select[@name='new_group']//option")
+        available_values = []
+        return list(
+            map(lambda option: available_values.append(option.text), options))
