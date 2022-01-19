@@ -1,8 +1,3 @@
-from datetime import time
-from telnetlib import EC
-
-from attr import exceptions
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from model.contact import Contact
@@ -50,7 +45,10 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         WebDriverWait(wd, 10).until(
-            lambda method: (wd.current_url.endswith("addressbook/") and len(wd.find_elements(By.ID, "maintable")) > 0))
+            lambda method:
+                (len(wd.find_elements(By.CLASS_NAME, "msgbox")) > 0)
+        )
+        assert wd.find_element(By.CLASS_NAME, "msgbox").text == "Record successful deleted"
         self.contact_cache = None
 
     def delete_all(self):
@@ -61,7 +59,10 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         WebDriverWait(wd, 10).until(
-            lambda method: (wd.current_url.endswith("addressbook/") and len(wd.find_elements(By.ID, "maintable")) > 0))
+            lambda method:
+                (len(wd.find_elements(By.CLASS_NAME, "msgbox")) > 0)
+        )
+        assert wd.find_element(By.CLASS_NAME, "msgbox").text == "Record successful deleted"
         self.contact_cache = None
 
     def delete(self, contact_lastname, contact_firstname):
@@ -74,7 +75,11 @@ class ContactHelper:
         # submit deletion
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
-        WebDriverWait(wd, 10).until(lambda method: (wd.current_url.endswith("addressbook/") and len(wd.find_elements(By.ID, "maintable")) > 0))
+        WebDriverWait(wd, 10).until(
+            lambda method:
+                (len(wd.find_elements(By.CLASS_NAME, "msgbox")) > 0)
+        )
+        assert wd.find_element(By.CLASS_NAME, "msgbox").text == "Record successful deleted"
         self.contact_cache = None
 
     def fill_contact_form(self, new_contact):
@@ -143,14 +148,8 @@ class ContactHelper:
             wd = self.app.wd
             self.open_contacts_page()
             self.contact_cache = []
-
-            WebDriverWait(wd, 20).until(EC.presence_of_all_elements_located((By.XPATH, "//table[@id='maintable']//tr[@name='entry']")))
-            # WebDriverWait(wd, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, "td")))
             rows = wd.find_elements(By.XPATH, "//table[@id='maintable']//tr[@name='entry']")
-
             for row in rows:
-                WebDriverWait(row, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, "td")))
-
                 cells = row.find_elements(By.TAG_NAME, "td")
                 contact_id = cells[0].find_element(By.NAME, "selected[]").get_attribute("value")
                 lastname = cells[1].text
@@ -158,36 +157,3 @@ class ContactHelper:
                 self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=contact_id))
         return list(self.contact_cache)
 
-    def find(self):
-        wd = self.app.wd
-        element = wd.find_elements_by_id("data")
-        if element:
-            return element
-        else:
-            return False
-
-    def page_has_loaded(self):
-        wd = self.app.wd
-        page_state = wd.execute_script('return document.readyState;')
-        return page_state == 'complete'
-
-    def wait_for_visibility(self, selector, timeout_seconds=10):
-        retries = timeout_seconds
-        while retries:
-            try:
-                element = self.get_via_css(selector)
-                if element.is_displayed():
-                    return element
-            except (exceptions.NoSuchElementException,
-                    exceptions.StaleElementReferenceException):
-                if retries <= 0:
-                    raise
-                else:
-                    pass
-
-            retries = retries - 1
-            time.sleep(1)
-        raise exceptions.ElementNotVisibleException(
-            "Element %s not visible despite waiting for %s seconds" % (
-                selector, timeout_seconds)
-        )

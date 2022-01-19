@@ -1,6 +1,4 @@
-from selenium.webdriver.common import keys
 from selenium.webdriver.common.by import By
-
 from model.group import Group
 
 
