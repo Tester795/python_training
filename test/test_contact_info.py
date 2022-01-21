@@ -19,18 +19,23 @@ def test_phones_info_same_on_detail_and_edit_pages(app):
 
 def test_random_contact_info_same_on_home_and_edit_pages(app):
     old_contacts = app.contact.get_contact_list()
-    index = randrange(len(old_contacts))
+    index = randrange(len(old_contacts)) 
     contact_from_home_page = app.contact.get_contact_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
-    assert contact_from_home_page.firstname == firstname_like_on_home_page(contact_from_edit_page)
+    assert contact_from_home_page.firstname == formate_like_on_home_page(contact_from_edit_page.firstname)
     assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
-    assert contact_from_home_page.lastname == lastname_like_on_home_page(contact_from_edit_page)
-    assert contact_from_home_page.address == address_like_on_home_page(contact_from_edit_page)
+    assert contact_from_home_page.lastname == formate_like_on_home_page(contact_from_edit_page.lastname)
+    assert contact_from_home_page.address == formate_like_on_home_page(contact_from_edit_page.address)
     assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(contact_from_edit_page)
 
 
 def clear(s):
-    return re.sub("[() -]", "", s)
+    return re.sub("[/.() -]", "", s, re.DOTALL)
+
+
+def formate_like_on_home_page(s):
+    if s != "" and s is not None:
+        return (re.sub(' +', ' ', s)).rstrip(' ')
 
 
 def merge_phones_like_on_home_page(contact):
@@ -42,19 +47,7 @@ def merge_phones_like_on_home_page(contact):
                                                                , contact.home_telephone_2]))))
 
 
-def firstname_like_on_home_page(contact):
-    return "\n".join(filter(lambda x: x is not None, [contact.firstname]))
-
-
-def lastname_like_on_home_page(contact):
-    return "\n".join(filter(lambda x: x is not None, [contact.lastname]))
-
-
-def address_like_on_home_page(contact):
-    return "\n".join(filter(lambda x: x is not None, [contact.address]))
-
-
 def merge_emails_like_on_home_page(contact):
-    return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear(x), filter(lambda x: x is not None, [contact.email,
-                                                                                     contact.email_2, contact.email_3]))))
+    return "\n".join(filter(lambda x: x != "", filter(lambda x: x is not None, [contact.email
+                                                                                , contact.email_2, contact.email_3])))
+
