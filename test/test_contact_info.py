@@ -19,7 +19,7 @@ def test_phones_info_same_on_detail_and_edit_pages(app):
 
 def test_random_contact_info_same_on_home_and_edit_pages(app):
     old_contacts = app.contact.get_contact_list()
-    index = randrange(len(old_contacts))
+    index = 9 #randrange(len(old_contacts))
     contact_from_home_page = app.contact.get_contact_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.firstname == formate_like_on_home_page(contact_from_edit_page.firstname)
@@ -36,6 +36,10 @@ def clear(s):
 def formate_like_on_home_page(s):
     if s != "" and s is not None:
         return (re.sub(' +', ' ', s)).rstrip(' ')
+    elif s == "":
+        return s
+
+
 
 
 def merge_phones_like_on_home_page(contact):
