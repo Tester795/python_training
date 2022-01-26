@@ -1,6 +1,3 @@
-import string
-import random
-
 from model.group import Group
 
 testdata = [

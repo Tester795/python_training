@@ -253,22 +253,21 @@ class ContactHelper:
         self.open_add_new_page()
         options = wd.find_elements(By.XPATH, "//select[@name='bday']//option")
         available_values = []
-        # [available_values.append(option.get_attribute("value")) for option in options]
-        return list(
-            map(lambda option: available_values.append(option.get_attribute("value")), options))
+        [available_values.append(option.text) for option in options]
+        return available_values
 
     def get_birthmoth_available_values(self):
         wd = self.app.wd
         self.open_add_new_page()
         options = wd.find_elements(By.XPATH, "//select[@name='bmonth']//option")
         available_values = []
-        return list(
-            map(lambda option: available_values.append(option.get_attribute("value")), options))
+        list(map(lambda option: available_values.append(option.text), options))
+        return available_values
 
     def get_group_available_values(self):
         wd = self.app.wd
         self.open_add_new_page()
         options = wd.find_elements(By.XPATH, "//select[@name='new_group']//option")
         available_values = []
-        return list(
-            map(lambda option: available_values.append(option.text), options))
+        list(map(lambda option: available_values.append(option.text), options))
+        return available_values
