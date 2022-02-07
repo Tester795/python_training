@@ -1,14 +1,16 @@
 from sys import maxsize
 
+from model.group import Group
+
 
 class Contact:
-    def __init__(self, contact_id=None, firstname=None, middlename=None, lastname=None, nickname=None, title=None
+    def __init__(self, id=None, firstname=None, middlename=None, lastname=None, nickname=None, title=None
                  , company=None, address=None, home_telephone=None, mobile_telephone=None, work_telephone=None,
                  fax_telephone=None, email=None, email_2=None,
                  email_3=None, home_page_url=None, birthday=None, birth_month=None, birth_year=None, address_2=None,
                  home_telephone_2=None, notes=None, group=None,
                  all_phones_from_home_page=None, all_emails_from_home_page=None, all_addresses_from_details_page=None):
-        self.id = contact_id
+        self.id = id
         self.firstname = firstname
         self.middle_name = middlename
         self.lastname = lastname

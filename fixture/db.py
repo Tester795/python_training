@@ -38,7 +38,7 @@ class DbFixture:
             for row in cursor:
                 (contact_id, firstname, middlename, lastname) = row
                 contact_list.append(
-                    Contact(contact_id=str(contact_id), firstname=firstname, middlename=middlename, lastname=lastname))
+                    Contact(id=str(contact_id), firstname=firstname, middlename=middlename, lastname=lastname))
         finally:
             cursor.close()
         return contact_list

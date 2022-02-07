@@ -5,7 +5,6 @@ from pymysql.converters import decoders
 
 
 class ORMFixture:
-
     db = Database()
 
     class ORMGroup(db.Entity):
@@ -38,26 +37,28 @@ class ORMFixture:
                      column="group_id", reverse="contacts", lazy=True)
 
     def __init__(self, host, name, user, password):
-        self.db.bind("mysql", host=host, database=name, user=user, password=password, conv=decoders)
+        self.db.bind('mysql', host=host, database=name, user=user, password=password)
         self.db.generate_mapping()
         sql_debug(True)
 
     def convert_groups_to_model(self, groups):
         def convert(group):
             return Group(id=str(group.id), name=group.name, header=group.header, footer=group.footer)
-        return list(map(convert, groups))
 
-    def convert_contacts_to_model(self, contacts):
-        def convert(contact):
-            return Contact(contact_id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname,
-                           address=contact.address, email=contact.email, email_2=contact.email2,
-                           email_3=contact.email3, home_telephone=contact.home, mobile_telephone=contact.mobile,
-                           work_telephone=contact.work, home_telephone_2=contact.home2)
-        return list(map(convert, contacts))
+        return list(map(convert, groups))
 
     @db_session
     def get_group_list(self):
         return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup))
+
+    def convert_contacts_to_model(self, contacts):
+        def convert(contact):
+            return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname,
+                           address=contact.address, email=contact.email, email_2=contact.email2,
+                           email_3=contact.email3, home_telephone=contact.home, mobile_telephone=contact.mobile,
+                           work_telephone=contact.work, home_telephone_2=contact.home2)
+
+        return list(map(convert, contacts))
 
     @db_session
     def get_contact_list(self):

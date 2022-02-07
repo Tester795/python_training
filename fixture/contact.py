@@ -18,7 +18,8 @@ class ContactHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        wd.find_element(By.LINK_TEXT, "home page").click()
+        # wd.find_element(By.LINK_TEXT, "home page").click()
+        wd.find_element(By.XPATH, "/html/body/div/div[3]/ul/li[1]/a").click()
 
     def create(self, contact):
         wd = self.app.wd
@@ -195,7 +196,7 @@ class ContactHelper:
                 all_phones = cells[5].text  # .splitlines()
                 self.contact_cache.append(
                     Contact(
-                        contact_id=contact_id
+                        id=contact_id
                         , firstname=firstname
                         , lastname=lastname
                         , address=address
@@ -239,7 +240,7 @@ class ContactHelper:
         email_2 = wd.find_element(By.NAME, "email2").get_attribute("value")
         email_3 = wd.find_element(By.NAME, "email3").get_attribute("value")
         return Contact(
-            contact_id=contact_id
+            id=contact_id
             , firstname=first_name
             , lastname=last_name
             , home_telephone=home_telephone
@@ -297,3 +298,36 @@ class ContactHelper:
         available_values = []
         list(map(lambda option: available_values.append(option.text), options))
         return available_values
+
+    def add_contact_to_group_by_id(self, contact_id, group_name):
+        wd = self.app.wd
+        self.open_contacts_page()
+        self.select_by_id(contact_id)
+        if group_name is not None:
+            wd.find_element(By.XPATH, "//*[@id='content']/form[2]/div[4]/select").send_keys(group_name)
+        wd.find_element(By.CSS_SELECTOR, "input[value='Add to']").click()
+        WebDriverWait(wd, 10).until(
+            lambda method:
+            (len(wd.find_elements(By.CLASS_NAME, "msgbox")) > 0)
+        )
+        self.return_to_home_page()
+
+    def delete_contact_from_group_by_id(self, contact_id, group_name):
+        wd = self.app.wd
+        self.open_contacts_page()
+        if group_name is not None:
+            wd.find_element(By.XPATH, "//form[@id='right']//select[@name='group']").send_keys(group_name)
+        WebDriverWait(wd, 10).until(
+            lambda method:
+            (len(wd.find_elements(By.NAME, "remove")) > 0)
+        )
+        assert wd.find_element(By.NAME, "remove").get_attribute("value") == 'Remove from "%s"' % group_name
+
+        self.select_by_id(contact_id)
+        wd.find_element(By.NAME, "remove").click()
+        WebDriverWait(wd, 10).until(
+            lambda method:
+            (len(wd.find_elements(By.CLASS_NAME, "msgbox")) > 0)
+        )
+
+        self.return_to_home_page()
