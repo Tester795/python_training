@@ -41,13 +41,12 @@ class Contact:
             self.email, self.home_telephone, self.mobile_telephone, self.work_telephone)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.firstname == other.firstname and self.lastname == other.lastname
+        return (self.id is None or other.id is None or self.id == other.id) and \
+               (self.lastname == other.lastname or self.lastname is None or
+                other.lastname is None) and \
+               (self.firstname == other.firstname or self.firstname is None or
+                other.firstname is None)
 
-    # return (self.id is None or other.id is None or self.id == other.id) and \
-    #        (self.lastname == other.lastname or self.lastname is None or
-    #         other.lastname is None) and \
-    #        (self.firstname == other.firstname or self.firstname is None or
-    #         other.firstname is None)
     def id_or_max(self):
         if self.id:
             return int(self.id)
