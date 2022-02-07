@@ -4,80 +4,13 @@ from random import randrange
 from model.contact import Contact
 
 
-def test_delete_first_contact(app):
-    if app.contact.count() == 0:
-        app.contact.create(
-            Contact(
-                firstname="test 2",
-                middle_name="test",
-                lastname="test",
-                nickname="test",
-                title="test",
-                company="test",
-                address="test",
-                home_telephone="54456",
-                mobile_telephone="465",
-                work_telephone="234",
-                fax_telephone="224567",
-                email="test",
-                email_2="test",
-                email_3="test",
-                home_page_url="test",
-                birthday="17",
-                birth_month="December",
-                birth_year="3456",
-                address_2="test",
-                home_telephone_2="test",
-                notes="test",
-                group="Group 1"))
-    old_contacts = app.contact.get_contact_list()
-    app.contact.delete_first()
-    assert app.contact.count() == len(old_contacts) - 1
-    new_contacts = app.contact.get_contact_list()
-    old_contacts[0:1] = []
-    assert old_contacts == new_contacts
+def test_delete_first_contact(app, db, check_ui):
 
-
-def test_delete_some_contact(app):
-    if app.contact.count() == 0:
-        app.contact.create(
-            Contact(
-                firstname="test 2",
-                middle_name="test",
-                lastname="test",
-                nickname="test",
-                title="test",
-                company="test",
-                address="test",
-                home_telephone="54456",
-                mobile_telephone="465",
-                work_telephone="234",
-                fax_telephone="224567",
-                email="test",
-                email_2="test",
-                email_3="test",
-                home_page_url="test",
-                birthday="17",
-                birth_month="December",
-                birth_year="3456",
-                address_2="test",
-                home_telephone_2="test",
-                notes="test",
-                group="Group 1"))
-    old_contacts = app.contact.get_contact_list()
-    index = randrange(len(old_contacts))
-    app.contact.delete_by_index(index)
-    assert app.contact.count() == len(old_contacts) - 1
-    new_contacts = app.contact.get_contact_list()
-    old_contacts[index:index+1] = []
-    assert old_contacts == new_contacts
-
-
-def test_delete_contact(app):
-    test_contact = Contact(
-            firstname="Contact for deletion",
-            middle_name="test",
-            lastname="Contact for deletion",
+    if len(db.get_contact_list()) == 0:
+        first_contact = Contact(
+            firstname="test 2",
+            middlename="test",
+            lastname="test",
             nickname="test",
             title="test",
             company="test",
@@ -97,23 +30,65 @@ def test_delete_contact(app):
             home_telephone_2="test",
             notes="test",
             group="Group 1")
+        app.contact.create(first_contact)
 
-    if not app.contact.exist(test_contact.firstname, test_contact.lastname):
+    old_contacts = db.get_contact_list()
+    app.contact.delete_first()
+    # assert app.contact.count() == len(old_contacts) - 1
+    new_contacts = db.get_contact_list()  # app.contact.get_contact_list()
+    old_contacts[0:1] = []
+    assert sorted(new_contacts, key=Contact.id_or_max) == sorted(old_contacts, key=Contact.id_or_max)
+    if check_ui:
+        print("CHECK_UI")
+        assert sorted(new_contacts, key=Contact.id_or_max) \
+               == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+
+
+def test_delete_some_contact(app, db, check_ui):
+
+    if len(db.get_contact_list()) == 0:
+        test_contact = Contact(
+            firstname="test 2",
+            middlename="test",
+            lastname="test",
+            nickname="test",
+            title="test",
+            company="test",
+            address="test",
+            home_telephone="54456",
+            mobile_telephone="465",
+            work_telephone="234",
+            fax_telephone="224567",
+            email="test",
+            email_2="test",
+            email_3="test",
+            home_page_url="test",
+            birthday="17",
+            birth_month="December",
+            birth_year="3456",
+            address_2="test",
+            home_telephone_2="test",
+            notes="test",
+            group="Group 1")
         app.contact.create(test_contact)
-    old_contacts = app.contact.get_contact_list()
-    app.contact.delete(test_contact.lastname, test_contact.firstname)
-    assert app.contact.count() == len(old_contacts) - 1
-    new_contacts = app.contact.get_contact_list()
-    old_contacts.remove(test_contact)
-    assert old_contacts == new_contacts
+    old_contacts = db.get_contact_list()
+    index = randrange(len(old_contacts))
+    app.contact.delete_by_index(index)
+    new_contacts = db.get_contact_list()
+    old_contacts[index:index + 1] = []
+    assert sorted(new_contacts, key=Contact.id_or_max) == sorted(old_contacts, key=Contact.id_or_max)
+    if check_ui:
+        print("CHECK_UI")
+        assert sorted(new_contacts, key=Contact.id_or_max) \
+               == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
 
 
-def test_delete_all_contacts(app):
-    if app.contact.count() == 0:
+def test_delete_all_contacts(app, db, check_ui):
+    if len(db.get_contact_list()) == 0:
         app.contact.create(
             Contact(
                 firstname="test 2",
-                middle_name="test",
+                middlename="test",
                 lastname="test",
                 nickname="test",
                 title="test",
@@ -135,6 +110,9 @@ def test_delete_all_contacts(app):
                 notes="test",
                 group="Group 1"))
     app.contact.delete_all()
-    new_contacts = app.contact.get_contact_list()
+    new_contacts = db.get_contact_list()
     assert len(new_contacts) == 0
-
+    if check_ui:
+        print("CHECK_UI")
+        assert sorted(new_contacts, key=Contact.id_or_max) \
+               == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)

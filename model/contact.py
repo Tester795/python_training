@@ -2,15 +2,15 @@ from sys import maxsize
 
 
 class Contact:
-    def __init__(self, id=None, firstname=None, middle_name=None, lastname=None, nickname=None, title=None
+    def __init__(self, contact_id=None, firstname=None, middlename=None, lastname=None, nickname=None, title=None
                  , company=None, address=None, home_telephone=None, mobile_telephone=None, work_telephone=None,
                  fax_telephone=None, email=None, email_2=None,
                  email_3=None, home_page_url=None, birthday=None, birth_month=None, birth_year=None, address_2=None,
                  home_telephone_2=None, notes=None, group=None,
                  all_phones_from_home_page=None, all_emails_from_home_page=None, all_addresses_from_details_page=None):
-        self.id = id
+        self.id = contact_id
         self.firstname = firstname
-        self.middle_name = middle_name
+        self.middle_name = middlename
         self.lastname = lastname
         self.nickname = nickname
         self.title = title
@@ -43,6 +43,11 @@ class Contact:
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.firstname == other.firstname and self.lastname == other.lastname
 
+    # return (self.id is None or other.id is None or self.id == other.id) and \
+    #        (self.lastname == other.lastname or self.lastname is None or
+    #         other.lastname is None) and \
+    #        (self.firstname == other.firstname or self.firstname is None or
+    #         other.firstname is None)
     def id_or_max(self):
         if self.id:
             return int(self.id)

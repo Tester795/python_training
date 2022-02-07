@@ -33,18 +33,35 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
-    def delete_first(self):
-        self.delete_by_index(0)
-
     def select_by_index(self, index):
         wd = self.app.wd
         self.open_contacts_page()
         wd.find_elements(By.NAME, "selected[]")[index].click()
 
+    def select_by_id(self, contact_id):
+        wd = self.app.wd
+        wd.find_element(By.CSS_SELECTOR, "input[value='%s']" % str(contact_id)).click()
+
+    def delete_first(self):
+        self.delete_by_index(0)
+
     def delete_by_index(self, index):
         wd = self.app.wd
         self.open_contacts_page()
         self.select_by_index(index)
+        wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        WebDriverWait(wd, 10).until(
+            lambda method:
+            (len(wd.find_elements(By.CLASS_NAME, "msgbox")) > 0)
+        )
+        assert wd.find_element(By.CLASS_NAME, "msgbox").text == "Record successful deleted"
+        self.contact_cache = None
+
+    def delete_by_id(self, contact_id):
+        wd = self.app.wd
+        self.open_contacts_page()
+        self.select_by_id(contact_id)
         wd.find_element(By.XPATH, "//*[@id='content']//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         WebDriverWait(wd, 10).until(
@@ -137,6 +154,15 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def modify_by_id(self, contact_id, new_contact_data):
+        wd = self.app.wd
+        self.open_contacts_page()
+        wd.find_element(By.XPATH, "//a[@href='edit.php?id=%s']" % str(contact_id)).click()
+        self.fill_contact_form(new_contact_data)
+        wd.find_element(By.XPATH, "//*[@id='content']/form/input[@name='update']").click()
+        self.return_to_home_page()
+        self.contact_cache = None
+
     def count(self):
         wd = self.app.wd
         self.open_contacts_page()
@@ -169,7 +195,7 @@ class ContactHelper:
                 all_phones = cells[5].text  # .splitlines()
                 self.contact_cache.append(
                     Contact(
-                        id=contact_id
+                        contact_id=contact_id
                         , firstname=firstname
                         , lastname=lastname
                         , address=address
@@ -213,7 +239,7 @@ class ContactHelper:
         email_2 = wd.find_element(By.NAME, "email2").get_attribute("value")
         email_3 = wd.find_element(By.NAME, "email3").get_attribute("value")
         return Contact(
-            id=contact_id
+            contact_id=contact_id
             , firstname=first_name
             , lastname=last_name
             , home_telephone=home_telephone

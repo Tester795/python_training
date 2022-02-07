@@ -41,22 +41,20 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "group page").click()
 
-    def delete_first(self):
-        self.delete_by_index(0)
-
     def select_by_index(self, index):
         wd = self.app.wd
         wd.find_elements(By.NAME, "selected[]")[index].click()
 
-    def delete_by_index(self, index):
+    def select_by_id(self, group_id):
         wd = self.app.wd
-        self.open_groups_page()
-        # select first group
-        # submit deletion
-        self.select_by_index(index)
-        wd.find_element(By.NAME, "delete").click()
-        self.return_to_groups_page()
-        self.group_cache = None
+        wd.find_element_by_css_selector("input[value='%s']" % group_id).click()
+
+    def select_first_group(self):
+        wd = self.app.wd
+        wd.find_element(By.NAME, "selected[]").click()
+
+    def delete_first(self):
+        self.delete_by_index(0)
 
     def delete(self, group_name):
         wd = self.app.wd
@@ -69,6 +67,24 @@ class GroupHelper:
 
         wd.find_element(By.XPATH, xpath).click()
         # submit deletion
+        wd.find_element(By.NAME, "delete").click()
+        self.return_to_groups_page()
+        self.group_cache = None
+
+    def delete_by_index(self, index):
+        wd = self.app.wd
+        self.open_groups_page()
+        # select first group
+        # submit deletion
+        self.select_by_index(index)
+        wd.find_element(By.NAME, "delete").click()
+        self.return_to_groups_page()
+        self.group_cache = None
+
+    def delete_by_id(self, group_id):
+        wd = self.app.wd
+        self.open_groups_page()
+        self.select_by_id(group_id)
         wd.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
         self.group_cache = None
@@ -111,9 +127,15 @@ class GroupHelper:
         self.return_to_groups_page()
         self.group_cache = None
 
-    def select_first_group(self):
+    def modify_by_id(self, group_id, group):
         wd = self.app.wd
-        wd.find_element(By.NAME, "selected[]").click()
+        self.open_groups_page()
+        self.select_by_id(group_id)
+        wd.find_element(By.NAME, "edit").click()
+        self.fill_group_form(group)
+        wd.find_element_by_name("update").click()
+        self.return_to_groups_page()
+        self.group_cache = None
 
     def count(self):
         wd = self.app.wd
