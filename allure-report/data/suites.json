@@ -1,0 +1,119 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "name" : "suites",
+  "children" : [ {
+    "name" : "test",
+    "children" : [ {
+      "name" : "test_add_group",
+      "children" : [ {
+        "name" : "test_add_group[None",
+        "children" : [ {
+          "name" : "test_add_group[None:::__]",
+          "uid" : "a3d995d80171a7df",
+          "parentUid" : "705df66ac451c4120e3e7f09593a7615",
+          "status" : "passed",
+          "time" : {
+            "start" : 1645212531464,
+            "stop" : 1645212531920,
+            "duration" : 456
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "newPassed" : false,
+          "newBroken" : false,
+          "retriesCount" : 1,
+          "retriesStatusChange" : true,
+          "parameters" : [ "None:::__" ]
+        }, {
+          "name" : "test_add_group[None:::name.k  $_header B 'E4(i}b1 f*U_footerYixKBh/'~R]",
+          "uid" : "6412b351846dc6c8",
+          "parentUid" : "705df66ac451c4120e3e7f09593a7615",
+          "status" : "failed",
+          "time" : {
+            "start" : 1645212531953,
+            "stop" : 1645212532289,
+            "duration" : 336
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "newPassed" : false,
+          "newBroken" : false,
+          "retriesCount" : 1,
+          "retriesStatusChange" : true,
+          "parameters" : [ "None:::name.k  $_header B 'E4(i}b1 f*U_footerYixKBh/'~R" ]
+        }, {
+          "name" : "test_add_group[None:::namey m2_header#g 1^uD_footerj!pqv|gh1WS]",
+          "uid" : "bde660ae2a66bba1",
+          "parentUid" : "705df66ac451c4120e3e7f09593a7615",
+          "status" : "passed",
+          "time" : {
+            "start" : 1645212532437,
+            "stop" : 1645212532765,
+            "duration" : 328
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "newPassed" : false,
+          "newBroken" : false,
+          "retriesCount" : 1,
+          "retriesStatusChange" : true,
+          "parameters" : [ "None:::namey m2_header#g 1^uD_footerj!pqv|gh1WS" ]
+        }, {
+          "name" : "test_add_group[None:::nameRV_header f`ml& z&JP]'OiU_footerq~$hZNp)r$ceL\\]",
+          "uid" : "d2816b94855fb03e",
+          "parentUid" : "705df66ac451c4120e3e7f09593a7615",
+          "status" : "failed",
+          "time" : {
+            "start" : 1645212532804,
+            "stop" : 1645212533132,
+            "duration" : 328
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "newPassed" : false,
+          "newBroken" : false,
+          "retriesCount" : 1,
+          "retriesStatusChange" : true,
+          "parameters" : [ "None:::nameRV_header f`ml& z&JP]'OiU_footerq~$hZNp)r$ceL\\" ]
+        }, {
+          "name" : "test_add_group[None:::name1hH_w2koU_headerve R6_footerz%nW}BF}RNV1]",
+          "uid" : "5b54d19a127d0466",
+          "parentUid" : "705df66ac451c4120e3e7f09593a7615",
+          "status" : "passed",
+          "time" : {
+            "start" : 1645212533175,
+            "stop" : 1645212533520,
+            "duration" : 345
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "newPassed" : false,
+          "newBroken" : false,
+          "retriesCount" : 1,
+          "retriesStatusChange" : true,
+          "parameters" : [ "None:::name1hH_w2koU_headerve R6_footerz%nW}BF}RNV1" ]
+        }, {
+          "name" : "test_add_group[None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y]",
+          "uid" : "a48e77650380a560",
+          "parentUid" : "705df66ac451c4120e3e7f09593a7615",
+          "status" : "failed",
+          "time" : {
+            "start" : 1645212533558,
+            "stop" : 1645212533903,
+            "duration" : 345
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "newPassed" : false,
+          "newBroken" : false,
+          "retriesCount" : 1,
+          "retriesStatusChange" : true,
+          "parameters" : [ "None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y" ]
+        } ],
+        "uid" : "705df66ac451c4120e3e7f09593a7615"
+      } ],
+      "uid" : "5d3e96f7ebf064b5c68ffe91a0a61511"
+    } ],
+    "uid" : "ff2b04dbb9c449a4d40723f51d841925"
+  } ]
+}

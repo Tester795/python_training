@@ -1,0 +1,195 @@
+{
+  "uid" : "e26e76b8edaf14c6",
+  "name" : "test_add_group[None:::__]",
+  "fullName" : "test.test_add_group.test_add_group[None#:__]",
+  "historyId" : "e8a02a5e9f28011d41700f7098413e97",
+  "time" : {
+    "start" : 1645212449873,
+    "stop" : 1645212450405,
+    "duration" : 532
+  },
+  "status" : "broken",
+  "statusMessage" : "TypeError: not all arguments converted during string formatting",
+  "statusTrace" : "app = <fixture.application.Application object at 0x000001A929D0E520>, db = <fixture.db.DbFixture object at 0x000001A929CE67F0>, check_ui = False, json_groups = None:::__\n\n    def test_add_group(app, db, check_ui, json_groups):\n        group = json_groups\n        with allure.step('Given a group list'):\n            old_groups = db.get_group_list()\n        with allure.step('When I add a group %s to the list' % group):\n            app.group.create(group)\n>       with allure.step('Then the new group list is equal to the old list with the added group' % group):\nE       TypeError: not all arguments converted during string formatting\n\ntest\\test_add_group.py:12: TypeError",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ {
+    "name" : "stop",
+    "time" : {
+      "start" : 1645212443751,
+      "stop" : 1645212443751,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "db",
+    "time" : {
+      "start" : 1645212443752,
+      "stop" : 1645212443756,
+      "duration" : 4
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "app",
+    "time" : {
+      "start" : 1645212443756,
+      "stop" : 1645212449872,
+      "duration" : 6116
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "check_ui",
+    "time" : {
+      "start" : 1645212449872,
+      "stop" : 1645212449872,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "status" : "broken",
+    "statusMessage" : "TypeError: not all arguments converted during string formatting",
+    "statusTrace" : "app = <fixture.application.Application object at 0x000001A929D0E520>, db = <fixture.db.DbFixture object at 0x000001A929CE67F0>, check_ui = False, json_groups = None:::__\n\n    def test_add_group(app, db, check_ui, json_groups):\n        group = json_groups\n        with allure.step('Given a group list'):\n            old_groups = db.get_group_list()\n        with allure.step('When I add a group %s to the list' % group):\n            app.group.create(group)\n>       with allure.step('Then the new group list is equal to the old list with the added group' % group):\nE       TypeError: not all arguments converted during string formatting\n\ntest\\test_add_group.py:12: TypeError",
+    "steps" : [ {
+      "name" : "Given a group list",
+      "time" : {
+        "start" : 1645212449873,
+        "stop" : 1645212449873,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "When I add a group None:::__ to the list",
+      "time" : {
+        "start" : 1645212449873,
+        "stop" : 1645212450405,
+        "duration" : 532
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "db::fin",
+    "time" : {
+      "start" : 1645212452389,
+      "stop" : 1645212452389,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "stop::fin",
+    "time" : {
+      "start" : 1645212452389,
+      "stop" : 1645212454092,
+      "duration" : 1703
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "test"
+  }, {
+    "name" : "suite",
+    "value" : "test_add_group"
+  }, {
+    "name" : "subSuite",
+    "value" : "test_add_group[None"
+  }, {
+    "name" : "host",
+    "value" : "zubakova-nb"
+  }, {
+    "name" : "thread",
+    "value" : "7748-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test.test_add_group"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "json_groups",
+    "value" : "None:::__"
+  } ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "e26e76b8edaf14c6.json",
+  "parameterValues" : [ "None:::__" ]
+}

@@ -1,0 +1,227 @@
+{
+  "uid" : "a48e77650380a560",
+  "name" : "test_add_group[None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y]",
+  "fullName" : "test.test_add_group.test_add_group[None#:nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|",
+  "historyId" : "7e0e586b941aa2df94f7556af4dc9aab",
+  "time" : {
+    "start" : 1645212533558,
+    "stop" : 1645212533903,
+    "duration" : 345
+  },
+  "status" : "failed",
+  "statusMessage" : "AssertionError: assert [1:::__, 2:::...erxzD57!, ...] == [1:::__, 2:::...erxzD57!, ...]\n  Right contains one more item: None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y\n  Use -v to get the full diff",
+  "statusTrace" : "app = <fixture.application.Application object at 0x000001D4FFD3B100>, db = <fixture.db.DbFixture object at 0x000001D4FFD3CB20>, check_ui = False, json_groups = None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y\n\n    def test_add_group(app, db, check_ui, json_groups):\n        group = json_groups\n        with allure.step('Given a group list'):\n            old_groups = db.get_group_list()\n        with allure.step('When I add a group %s to the list' % group):\n            app.group.create(group)\n        with allure.step('Then the new group list is equal to the old list with the added group'):\n            new_groups = db.get_group_list()\n            old_groups.append(group)\n>           assert sorted(new_groups, key=Group.id_or_max) == sorted(old_groups, key=Group.id_or_max)\nE           assert [1:::__, 2:::...erxzD57!, ...] == [1:::__, 2:::...erxzD57!, ...]\nE             Right contains one more item: None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y\nE             Use -v to get the full diff\n\ntest\\test_add_group.py:15: AssertionError",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 1,
+  "retriesStatusChange" : true,
+  "beforeStages" : [ {
+    "name" : "db",
+    "time" : {
+      "start" : 1645212525812,
+      "stop" : 1645212525812,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "stop",
+    "time" : {
+      "start" : 1645212525812,
+      "stop" : 1645212525812,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "app",
+    "time" : {
+      "start" : 1645212533525,
+      "stop" : 1645212533554,
+      "duration" : 29
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "check_ui",
+    "time" : {
+      "start" : 1645212533557,
+      "stop" : 1645212533557,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "status" : "failed",
+    "statusMessage" : "AssertionError: assert [1:::__, 2:::...erxzD57!, ...] == [1:::__, 2:::...erxzD57!, ...]\n  Right contains one more item: None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y\n  Use -v to get the full diff",
+    "statusTrace" : "app = <fixture.application.Application object at 0x000001D4FFD3B100>, db = <fixture.db.DbFixture object at 0x000001D4FFD3CB20>, check_ui = False, json_groups = None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y\n\n    def test_add_group(app, db, check_ui, json_groups):\n        group = json_groups\n        with allure.step('Given a group list'):\n            old_groups = db.get_group_list()\n        with allure.step('When I add a group %s to the list' % group):\n            app.group.create(group)\n        with allure.step('Then the new group list is equal to the old list with the added group'):\n            new_groups = db.get_group_list()\n            old_groups.append(group)\n>           assert sorted(new_groups, key=Group.id_or_max) == sorted(old_groups, key=Group.id_or_max)\nE           assert [1:::__, 2:::...erxzD57!, ...] == [1:::__, 2:::...erxzD57!, ...]\nE             Right contains one more item: None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y\nE             Use -v to get the full diff\n\ntest\\test_add_group.py:15: AssertionError",
+    "steps" : [ {
+      "name" : "Given a group list",
+      "time" : {
+        "start" : 1645212533558,
+        "stop" : 1645212533558,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "When I add a group None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y to the list",
+      "time" : {
+        "start" : 1645212533558,
+        "stop" : 1645212533902,
+        "duration" : 344
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "Then the new group list is equal to the old list with the added group",
+      "time" : {
+        "start" : 1645212533902,
+        "stop" : 1645212533903,
+        "duration" : 1
+      },
+      "status" : "failed",
+      "statusMessage" : "AssertionError: assert [1:::__, 2:::...erxzD57!, ...] == [1:::__, 2:::...erxzD57!, ...]\n  Right contains one more item: None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y\n  Use -v to get the full diff\n",
+      "statusTrace" : "  File \"C:\\Users\\Zubakova\\PycharmProjects\\python_training\\test\\test_add_group.py\", line 15, in test_add_group\n    assert sorted(new_groups, key=Group.id_or_max) == sorted(old_groups, key=Group.id_or_max)\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 3,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "db::fin",
+    "time" : {
+      "start" : 1645212533908,
+      "stop" : 1645212533908,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "stop::fin",
+    "time" : {
+      "start" : 1645212533908,
+      "stop" : 1645212535756,
+      "duration" : 1848
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "test"
+  }, {
+    "name" : "suite",
+    "value" : "test_add_group"
+  }, {
+    "name" : "subSuite",
+    "value" : "test_add_group[None"
+  }, {
+    "name" : "host",
+    "value" : "zubakova-nb"
+  }, {
+    "name" : "thread",
+    "value" : "17676-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test.test_add_group"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "json_groups",
+    "value" : "None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y"
+  } ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "d3d70e9ea1cb33e2",
+      "status" : "broken",
+      "statusDetails" : "TypeError: not all arguments converted during string formatting",
+      "time" : {
+        "start" : 1645212452011,
+        "stop" : 1645212452378,
+        "duration" : 367
+      }
+    } ],
+    "categories" : [ {
+      "name" : "Product defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ ]
+  },
+  "source" : "a48e77650380a560.json",
+  "parameterValues" : [ "None:::nameV]ExS_headerE 4G^|Cr3\"XGr._footer,}ZO'l ?|[9y" ]
+}

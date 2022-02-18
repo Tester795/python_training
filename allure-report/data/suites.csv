@@ -1,0 +1,7 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"failed","Fri Feb 18 22:28:53 MSK 2022","Fri Feb 18 22:28:53 MSK 2022","345","test","test_add_group","test_add_group[None","","","test_add_group[None:::nameV]ExS_headerE 4G^|Cr3""XGr._footer,}ZO'l ?|[9y]",""
+"failed","Fri Feb 18 22:28:51 MSK 2022","Fri Feb 18 22:28:52 MSK 2022","336","test","test_add_group","test_add_group[None","","","test_add_group[None:::name.k  $_header B 'E4(i}b1 f*U_footerYixKBh/'~R]",""
+"passed","Fri Feb 18 22:28:51 MSK 2022","Fri Feb 18 22:28:51 MSK 2022","456","test","test_add_group","test_add_group[None","","","test_add_group[None:::__]",""
+"passed","Fri Feb 18 22:28:52 MSK 2022","Fri Feb 18 22:28:52 MSK 2022","328","test","test_add_group","test_add_group[None","","","test_add_group[None:::namey m2_header#g 1^uD_footerj!pqv|gh1WS]",""
+"failed","Fri Feb 18 22:28:52 MSK 2022","Fri Feb 18 22:28:53 MSK 2022","328","test","test_add_group","test_add_group[None","","","test_add_group[None:::nameRV_header f`ml& z&JP]'OiU_footerq~$hZNp)r$ceL\]",""
+"passed","Fri Feb 18 22:28:53 MSK 2022","Fri Feb 18 22:28:53 MSK 2022","345","test","test_add_group","test_add_group[None","","","test_add_group[None:::name1hH_w2koU_headerve R6_footerz%nW}BF}RNV1]",""
